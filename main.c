@@ -1,7 +1,22 @@
 #include<stdio.h>
+int calc(int i,int op1,int op2)
+{
+    switch(i)
+    {
+    case 0:
+        return op1+op2;
+    case 1:
+        return op1-op2;
+    case 2:
+        return op1*op2;
+    case 3:
+        return op1/op2;
+    }
+}
 void forloops(int low,int end,int loops,int inc,int a[1][4],int ans[3],int n,int answer,int* count,int* count1)
 {
     int i, l = low, e = end,x,y;
+    char op[4] = {'+','-','*','/'};
     while(loops>0)
     {
 
@@ -11,135 +26,37 @@ void forloops(int low,int end,int loops,int inc,int a[1][4],int ans[3],int n,int
             {
                 if(loops == (n-1))
                 {
-                    if(i==0)
-                    {
-                        ans[n-(loops+1)]=a[0][0]+a[0][1];
 
-                    }
-                    if(i==1)
-                    {
-                        ans[n-(loops+1)]=a[0][0]-a[0][1];
-
-                    }
-                    if(i==2)
-                    {
-                        ans[n-(loops+1)]=a[0][0]*a[0][1];
-                    }
-                    if(i==3)
-                    {
-                        ans[n-(loops+1)]=a[0][0]/a[0][1];
-
-                    }
+                    ans[n-(loops+1)]=calc(i,a[0][0],a[0][1]);
                     if(*count==1)
                     {
                         y=i-1;
-                        if(y==0)
-                        {
-                            printf("\n%d+%d=",a[0][0],a[0][1]);
-                            printf("%d",a[0][0]+a[0][1]);
-                            break;
-                        }
-                        if(y==1)
-                        {
-                            printf("\n%d-%d=",a[0][0],a[0][1]);
-                            printf("%d",a[0][0]-a[0][1]);
-                            break;
-                        }
-                        if(y==2)
-                        {
-                            printf("\n%d*%d=",a[0][0],a[0][1]);
-                            printf("%d",a[0][0]*a[0][1]);
-                            break;
-                        }
-                        if(y==3)
-                        {
-                            printf("\n%d/%d=",a[0][0],a[0][1]);
-                            printf("%d",a[0][0]/a[0][1]);
-                            break;
-                        }
+
+                        printf("\n%d%c%d=",a[0][0],op[y],a[0][1]);
+                        printf("%d",calc(y,a[0][0],a[0][1]));
+                        break;
                     }
 
                 }
                 else if(loops!=(n-1))
                 {
 
-                    if(i==0)
-                    {
-                        ans[n-(loops+1)]=ans[n-(loops+2)]+a[0][n-loops];
-
-                    }
-                    if(i==1)
-                    {
-                        ans[n-(loops+1)]=ans[n-(loops+2)]-a[0][n-loops];
-                    }
-                    if(i==2)
-                    {
-                        ans[n-(loops+1)]=ans[n-(loops+2)]*a[0][n-loops];
-
-                    }
-                    if(i==3)
-                    {
-                        ans[n-(loops+1)]=ans[n-(loops+2)]/a[0][n-loops];
-
-                    }
+                    ans[n-(loops+1)]=calc(i,ans[n-(loops+2)],a[0][n-loops]);
                     if(*count==1&&loops!=1)
                     {
                         x=i-1;
-                        if(x==0)
-                        {
-                            printf("\n%d+%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+2)]+a[0][n-loops]);
-                            break;
-                        }
-                        if(x==1)
-                        {
-                            printf("\n%d-%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+2)]-a[0][n-loops]);
-                            break;
-                        }
-                        if(x==2)
-                        {
-                            printf("\n%d*%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+2)]*a[0][n-loops]);
-                            break;
-                        }
-                        if(x==3)
-                        {
-                            printf("\n%d/%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+2)]/a[0][n-loops]);
-                            break;
-                        }
+
+                        printf("\n%d%c%d=",ans[n-(loops+2)],op[x],a[0][n-loops]);
+                        printf("%d",calc(x,ans[n-(loops+2)],a[0][n-loops]));
+                        break;
                     }
                     if(loops==1&&ans[n-(loops+1)]==answer)
                     {
                         *count=1;
-                        ///*count1=1;
 
-                        if(i==0)
-                        {
-                            printf("\n%d+%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+1)]);
-                            break;
-                        }
-                        if(i==1)
-                        {
-                            printf("\n%d-%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+1)]);
-                            break;
-                        }
-                        if(i==2)
-                        {
-                            printf("\n%d*%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+1)]);
-                            break;
-                        }
-                        if(i==3)
-                        {
-                            printf("\n%d/%d=",ans[n-(loops+2)],a[0][n-loops]);
-                            printf("%d",ans[n-(loops+1)]);
-                            break;
-
-                        }
+                        printf("\n%d%c%d=",ans[n-(loops+2)],op[i],a[0][n-loops]);
+                        printf("%d",ans[n-(loops+1)]);
+                        break;
                         i=end;
                     }
                 }
